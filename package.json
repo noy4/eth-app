@@ -1,0 +1,17 @@
+{
+  "name": "eth-app",
+  "packageManager": "yarn@3.2.1",
+  "scripts": {
+    "dev": "yarn workspace @eth-app/frontend dev",
+    "chain": "yarn workspace @eth-app/hardhat chain",
+    "compile": "yarn workspace @eth-app/hardhat compile"
+  },
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
