@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typegen": "yarn shx rm -rf './src/typechain-types' && yarn shx cp -r '../hardhat/typechain-types' './src'"
   },
   "dependencies": {
     "react": "^18.0.0",
@@ -15,6 +16,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@vitejs/plugin-react": "^1.3.0",
+    "shx": "^0.3.4",
     "typescript": "^4.6.3",
     "vite": "^2.9.9"
   }
