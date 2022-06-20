@@ -1,12 +1,14 @@
 import { PageHeader } from 'antd'
-import { Account } from 'eth-components/ant'
+import { Account, GenericContract } from 'eth-components/ant'
 import { useEthersAdaptorFromProviderOrSigners } from 'eth-hooks'
 import { useDexEthPrice } from 'eth-hooks/dapps'
 import { MAINNET_PROVIDER, TARGET_NETWORK_INFO } from './config/app.config'
 import { useEthersAppContext } from 'eth-hooks/context'
 import { useCreateLoginConnector, useWeb3ModalConfig } from './components/hooks'
 import { useThemeSwitcher } from 'react-css-theme-switcher'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { createTabsAndRoutes, TContractPageList } from './components/main'
+import { BrowserRouter, Routes } from 'react-router-dom'
 
 function App() {
   const ethersAppContext = useEthersAppContext()
@@ -20,12 +22,35 @@ function App() {
   const { currentTheme } = useThemeSwitcher()
   const createLoginConnector = useCreateLoginConnector(web3Config, currentTheme)
 
+  const [route, setRoute] = useState('')
+
   useEffect(() => {
     if (!ethersAppContext.active) {
       const connector = createLoginConnector()
       if (connector) ethersAppContext.activate(connector)
     }
   }, [])
+
+  const pageList: TContractPageList = {
+    mainPage: {
+      name: 'YourContract',
+      content: (
+        <>a</>
+        // <GenericContract
+        //   contractName="YourContract"
+        //   contract={yourContract}
+        //   mainnetAdaptor={mainnetAdaptor}
+        //   blockExplorer={TARGET_NETWORK_INFO.blockExplorer}
+        // />
+      ),
+    },
+    pages: [],
+  }
+  const { routeContent: tabContents, tabMenu } = createTabsAndRoutes(
+    pageList,
+    route,
+    setRoute
+  )
 
   return (
     <div>
@@ -48,6 +73,22 @@ function App() {
           price={ethPrice}
         />
       </div>
+      <div
+        style={{
+          position: 'absolute',
+          right: 16,
+          top: 84,
+          padding: 10,
+          color: TARGET_NETWORK_INFO.color,
+        }}
+      >
+        {TARGET_NETWORK_INFO.name}
+      </div>
+
+      <BrowserRouter>
+        {tabMenu}
+        <Routes>{tabContents}</Routes>
+      </BrowserRouter>
     </div>
   )
 }
