@@ -1,43 +1,40 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { PageHeader } from 'antd'
+import { Account } from 'eth-components/ant'
+import { useEthersAdaptorFromProviderOrSigners } from 'eth-hooks'
+import { useDexEthPrice } from 'eth-hooks/dapps'
+import { MAINNET_PROVIDER, TARGET_NETWORK_INFO } from './config/app.config'
+import { useEthersAppContext } from 'eth-hooks/context'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const ethersAppContext = useEthersAppContext()
+  const [mainnetAdaptor] =
+    useEthersAdaptorFromProviderOrSigners(MAINNET_PROVIDER)
+  const [ethPrice] = useDexEthPrice(
+    mainnetAdaptor?.provider,
+    ethersAppContext.chainId !== 1 ? TARGET_NETWORK_INFO : undefined
+  )
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+    <div>
+      <PageHeader title="🏠 Eth App" subTitle="Let's rebuild scafold-eth" />
+      <div
+        style={{
+          // position: 'fixed',
+          // textAlign: 'right',
+          // right: 0,
+          // top: 0,
+          // padding: 10,
+          // zIndex: 1,
+          height: 40,
+        }}
+      >
+        <Account
+          hasContextConnect={false}
+          ensProvider={mainnetAdaptor?.provider}
+          blockExplorer={TARGET_NETWORK_INFO.blockExplorer}
+          price={ethPrice}
+        />
+      </div>
     </div>
   )
 }
