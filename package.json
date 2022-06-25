@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "yarn workspace @eth-app/frontend dev",
     "chain": "yarn workspace @eth-app/hardhat chain",
-    "compile": "yarn workspace @eth-app/hardhat compile && yarn workspace @eth-app/frontend typegen"
+    "compile": "yarn workspace @eth-app/hardhat compile && yarn workspace @eth-app/frontend typegen",
+    "deploy": "yarn workspace @eth-app/hardhat deploy",
+    "clean": "yarn workspace @eth-app/hardhat clean"
   },
   "workspaces": [
     "packages/*"
