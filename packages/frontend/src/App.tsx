@@ -1,14 +1,20 @@
 import { PageHeader } from 'antd'
 import { Account, GenericContract } from 'eth-components/ant'
 import { useEthersAdaptorFromProviderOrSigners } from 'eth-hooks'
-import { useDexEthPrice } from 'eth-hooks/dapps'
-import { MAINNET_PROVIDER, TARGET_NETWORK_INFO } from './config/app.config'
 import { useEthersAppContext } from 'eth-hooks/context'
-import { useCreateLoginConnector, useWeb3ModalConfig } from './components/hooks'
-import { useThemeSwitcher } from 'react-css-theme-switcher'
+import { useDexEthPrice } from 'eth-hooks/dapps'
+import { asEthersAdaptor } from 'eth-hooks/functions'
 import { useEffect, useState } from 'react'
+import { useThemeSwitcher } from 'react-css-theme-switcher'
+import { Routes } from 'react-router-dom'
+import {
+  useAppContracts,
+  useConnectAppContracts,
+  useLoadAppContracts,
+} from './components/context'
+import { useCreateLoginConnector, useWeb3ModalConfig } from './components/hooks'
 import { createTabsAndRoutes, TContractPageList } from './components/main'
-import { BrowserRouter, Routes } from 'react-router-dom'
+import { MAINNET_PROVIDER, TARGET_NETWORK_INFO } from './config/app.config'
 
 function App() {
   const ethersAppContext = useEthersAppContext()
@@ -31,17 +37,21 @@ function App() {
     }
   }, [])
 
+  useLoadAppContracts()
+  useConnectAppContracts(asEthersAdaptor(ethersAppContext))
+  const greeter = useAppContracts('Greeter', ethersAppContext.chainId)
+
   const pageList: TContractPageList = {
     mainPage: {
-      name: 'YourContract',
+      name: 'Greeter',
       content: (
-        <>a</>
-        // <GenericContract
-        //   contractName="YourContract"
-        //   contract={yourContract}
-        //   mainnetAdaptor={mainnetAdaptor}
-        //   blockExplorer={TARGET_NETWORK_INFO.blockExplorer}
-        // />
+        // <>a</>
+        <GenericContract
+          contractName="Greeter"
+          contract={greeter}
+          mainnetAdaptor={mainnetAdaptor}
+          blockExplorer={TARGET_NETWORK_INFO.blockExplorer}
+        />
       ),
     },
     pages: [],
@@ -85,10 +95,8 @@ function App() {
         {TARGET_NETWORK_INFO.name}
       </div>
 
-      <BrowserRouter>
-        {tabMenu}
-        <Routes>{tabContents}</Routes>
-      </BrowserRouter>
+      {tabMenu}
+      <Routes>{tabContents}</Routes>
     </div>
   )
 }
