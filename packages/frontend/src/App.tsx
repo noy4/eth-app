@@ -92,7 +92,7 @@ function App() {
         contract={greeter}
         blockExplorer={TARGET_NETWORK_INFO.blockExplorer}
       />
-      <MainPageFooter />
+      <MainPageFooter ethPrice={ethPrice} />
     </div>
   )
 }

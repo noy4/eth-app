@@ -1,3 +1,5 @@
 export * from './contract'
+export * from './Faucet'
 export * from './FaucetHintButton'
+export * from './GasGauge'
 export * from './ThemeSwitcher'
