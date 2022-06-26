@@ -7,6 +7,7 @@ import { asEthersAdaptor } from 'eth-hooks/functions'
 import { useEffect, useState } from 'react'
 import { useThemeSwitcher } from 'react-css-theme-switcher'
 import { Routes } from 'react-router-dom'
+import { MyGenericContract } from './components'
 import {
   useAppContracts,
   useConnectAppContracts,
@@ -75,6 +76,7 @@ function App() {
 
       {tabMenu}
       <Routes>{tabContents}</Routes>
+      <MyGenericContract contractName="Greeter" contract={greeter} />
     </div>
   )
 }
