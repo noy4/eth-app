@@ -13,7 +13,11 @@ import {
   useConnectAppContracts,
   useLoadAppContracts,
 } from './components/context'
-import { useCreateLoginConnector, useWeb3ModalConfig } from './components/hooks'
+import {
+  useBurnerFallback,
+  useCreateLoginConnector,
+  useWeb3ModalConfig,
+} from './components/hooks'
 import {
   createTabsAndRoutes,
   MainPageHeader,
@@ -37,10 +41,16 @@ function App() {
 
   useEffect(() => {
     if (!ethersAppContext.active) {
-      const connector = createLoginConnector()
+      let connector = createLoginConnector()
+      connector?.loadWeb3Modal()
+      if (!connector?.hasCachedProvider()) {
+        connector = createLoginConnector('custom-localhost')
+      }
       if (connector) ethersAppContext.activate(connector)
     }
-  }, [])
+  }, [createLoginConnector])
+
+  useBurnerFallback()
 
   useLoadAppContracts()
   useConnectAppContracts(asEthersAdaptor(ethersAppContext))
