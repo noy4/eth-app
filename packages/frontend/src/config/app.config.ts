@@ -10,3 +10,4 @@ export const TARGET_NETWORK_INFO: TNetworkInfo = NETWORKS[targetNetwork]
 export const MAINNET_PROVIDER = new StaticJsonRpcProvider(
   import.meta.env.VITE_RPC_MAINNET
 )
+export const LOCAL_PROVIDER = new StaticJsonRpcProvider(NETWORKS.localhost.url)

@@ -1,3 +1,4 @@
+import { NETWORKS } from '@/constants'
 import { ICoreOptions, IProviderOptions } from 'web3modal'
 
 export const getWeb3Config = async (): Promise<Partial<ICoreOptions>> => {
@@ -17,6 +18,29 @@ export const getWeb3Config = async (): Promise<Partial<ICoreOptions>> => {
     providerOptions['walletconnect'] = walletConnectEthereum
   } catch (error) {
     console.log('Failed to load Wallet Connect:', error)
+  }
+
+  try {
+    const { ConnectToStaticJsonRpcProvider } = await import('eth-hooks/context')
+    const { StaticJsonRpcProvider } = await import('@ethersproject/providers')
+    const localhostStaticConnector = {
+      display: {
+        logo: 'https://avatars.githubusercontent.com/u/56928858?s=200&v=4',
+        name: 'BurnerWallet',
+        description: '🔥 Connect to localhost with a burner wallet 🔥',
+      },
+      package: StaticJsonRpcProvider,
+      connector: ConnectToStaticJsonRpcProvider,
+      options: {
+        chainId: NETWORKS.localhost.chainId,
+        rpc: {
+          [NETWORKS.localhost.chainId]: NETWORKS.localhost.url,
+        },
+      },
+    }
+    providerOptions['custom-localhost'] = localhostStaticConnector
+  } catch (e) {
+    console.log('Failed to load burner wallet:', e)
   }
 
   return {

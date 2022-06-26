@@ -13,7 +13,11 @@ import {
   useLoadAppContracts,
 } from './components/context'
 import { useCreateLoginConnector, useWeb3ModalConfig } from './components/hooks'
-import { createTabsAndRoutes, TContractPageList } from './components/main'
+import {
+  createTabsAndRoutes,
+  MainPageHeader,
+  TContractPageList,
+} from './components/main'
 import { MAINNET_PROVIDER, TARGET_NETWORK_INFO } from './config/app.config'
 
 function App() {
@@ -45,7 +49,6 @@ function App() {
     mainPage: {
       name: 'Greeter',
       content: (
-        // <>a</>
         <GenericContract
           contractName="Greeter"
           contract={greeter}
@@ -64,36 +67,11 @@ function App() {
 
   return (
     <div>
-      <PageHeader title="🏠 Eth App" subTitle="Let's rebuild scafold-eth" />
-      <div
-        style={{
-          position: 'fixed',
-          textAlign: 'right',
-          right: 0,
-          top: 0,
-          padding: 10,
-          zIndex: 1,
-        }}
-      >
-        <Account
-          ensProvider={mainnetAdaptor?.provider}
-          createLoginConnector={createLoginConnector}
-          hasContextConnect
-          blockExplorer={TARGET_NETWORK_INFO.blockExplorer}
-          price={ethPrice}
-        />
-      </div>
-      <div
-        style={{
-          position: 'absolute',
-          right: 16,
-          top: 84,
-          padding: 10,
-          color: TARGET_NETWORK_INFO.color,
-        }}
-      >
-        {TARGET_NETWORK_INFO.name}
-      </div>
+      <MainPageHeader
+        ethPrice={ethPrice}
+        provider={mainnetAdaptor?.provider}
+        createLoginConnector={createLoginConnector}
+      />
 
       {tabMenu}
       <Routes>{tabContents}</Routes>
