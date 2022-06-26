@@ -20,6 +20,7 @@ import {
 } from './components/hooks'
 import {
   createTabsAndRoutes,
+  MainPageFooter,
   MainPageHeader,
   TContractPageList,
 } from './components/main'
@@ -91,6 +92,7 @@ function App() {
         contract={greeter}
         blockExplorer={TARGET_NETWORK_INFO.blockExplorer}
       />
+      <MainPageFooter />
     </div>
   )
 }

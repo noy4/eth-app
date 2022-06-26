@@ -26,7 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <EthComponentsSettingsContext.Provider value={ethComponentsSettings}>
       <ContractsAppContext>
         <EthersAppContext>
-          <ThemeSwitcherProvider themeMap={themes} defaultTheme="light">
+          <ThemeSwitcherProvider themeMap={themes}>
             <BrowserRouter>
               <App />
             </BrowserRouter>
