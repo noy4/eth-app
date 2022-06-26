@@ -7,7 +7,7 @@
     "build": "tsc && yarn build:anttheme && vite build",
     "build:anttheme": "yarn lessc -x -js ./src/styles/themes/ant-light-theme.less ./public/ant-light-theme.css && yarn lessc -x -js ./src/styles/themes/ant-dark-theme.less ./public/ant-dark-theme.css",
     "preview": "vite preview",
-    "typegen": "yarn shx rm -rf './src/typechain-types' && yarn shx cp -r '../hardhat/typechain-types' './src'"
+    "typegen": "yarn shx rm -rf './src/generated/typechain-types' && yarn shx cp -r '../hardhat/generated/typechain-types' './src/generated'"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
