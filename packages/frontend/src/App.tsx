@@ -86,7 +86,11 @@ function App() {
 
       {tabMenu}
       <Routes>{tabContents}</Routes>
-      <MyGenericContract contractName="Greeter" contract={greeter} />
+      <MyGenericContract
+        contractName="Greeter"
+        contract={greeter}
+        blockExplorer={TARGET_NETWORK_INFO.blockExplorer}
+      />
     </div>
   )
 }
