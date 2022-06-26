@@ -24,14 +24,41 @@ import type {
 export interface GreeterInterface extends utils.Interface {
   contractName: "Greeter";
   functions: {
+    "getMyNumber()": FunctionFragment;
+    "getMyString()": FunctionFragment;
     "greet()": FunctionFragment;
+    "myAddress()": FunctionFragment;
+    "myNumber()": FunctionFragment;
+    "myString()": FunctionFragment;
     "setGreeting(string)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "getMyNumber",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getMyString",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "greet", values?: undefined): string;
+  encodeFunctionData(functionFragment: "myAddress", values?: undefined): string;
+  encodeFunctionData(functionFragment: "myNumber", values?: undefined): string;
+  encodeFunctionData(functionFragment: "myString", values?: undefined): string;
   encodeFunctionData(functionFragment: "setGreeting", values: [string]): string;
 
+  decodeFunctionResult(
+    functionFragment: "getMyNumber",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getMyString",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "greet", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "myAddress", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "myNumber", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "myString", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setGreeting",
     data: BytesLike
@@ -68,7 +95,17 @@ export interface Greeter extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    getMyNumber(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    getMyString(overrides?: CallOverrides): Promise<[string]>;
+
     greet(overrides?: CallOverrides): Promise<[string]>;
+
+    myAddress(overrides?: CallOverrides): Promise<[string]>;
+
+    myNumber(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    myString(overrides?: CallOverrides): Promise<[string]>;
 
     setGreeting(
       _greeting: string,
@@ -76,7 +113,17 @@ export interface Greeter extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
+  getMyNumber(overrides?: CallOverrides): Promise<BigNumber>;
+
+  getMyString(overrides?: CallOverrides): Promise<string>;
+
   greet(overrides?: CallOverrides): Promise<string>;
+
+  myAddress(overrides?: CallOverrides): Promise<string>;
+
+  myNumber(overrides?: CallOverrides): Promise<BigNumber>;
+
+  myString(overrides?: CallOverrides): Promise<string>;
 
   setGreeting(
     _greeting: string,
@@ -84,7 +131,17 @@ export interface Greeter extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    getMyNumber(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getMyString(overrides?: CallOverrides): Promise<string>;
+
     greet(overrides?: CallOverrides): Promise<string>;
+
+    myAddress(overrides?: CallOverrides): Promise<string>;
+
+    myNumber(overrides?: CallOverrides): Promise<BigNumber>;
+
+    myString(overrides?: CallOverrides): Promise<string>;
 
     setGreeting(_greeting: string, overrides?: CallOverrides): Promise<void>;
   };
@@ -92,7 +149,17 @@ export interface Greeter extends BaseContract {
   filters: {};
 
   estimateGas: {
+    getMyNumber(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getMyString(overrides?: CallOverrides): Promise<BigNumber>;
+
     greet(overrides?: CallOverrides): Promise<BigNumber>;
+
+    myAddress(overrides?: CallOverrides): Promise<BigNumber>;
+
+    myNumber(overrides?: CallOverrides): Promise<BigNumber>;
+
+    myString(overrides?: CallOverrides): Promise<BigNumber>;
 
     setGreeting(
       _greeting: string,
@@ -101,7 +168,17 @@ export interface Greeter extends BaseContract {
   };
 
   populateTransaction: {
+    getMyNumber(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getMyString(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     greet(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    myAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    myNumber(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    myString(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setGreeting(
       _greeting: string,
